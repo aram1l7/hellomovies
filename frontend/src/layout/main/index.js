@@ -7,7 +7,6 @@ import Movies from "components/movies";
 function Main() {
   const [data, setData] = useState({});
 
-  console.log(data, "data");
   return (
     <div className="w-full px-4 md:px-5 lg:px-10 h-content flex justify-center items-center">
       <div className="flex flex-col text-center max-w-3xl">
