@@ -1,9 +1,13 @@
 import SearchInput from "components/search-input";
-import React from "react";
+import React, { useState } from "react";
 import { ReactComponent as MovieIcon } from "assets/icons/movie.svg";
 import { ReactComponent as TvIcon } from "assets/icons/tv.svg";
+import Movies from "components/movies";
 
 function Main() {
+  const [data, setData] = useState({});
+
+  console.log(data, "data");
   return (
     <div className="w-full px-4 md:px-5 lg:px-10 h-content flex justify-center items-center">
       <div className="flex flex-col text-center max-w-3xl">
@@ -14,7 +18,7 @@ function Main() {
           Search for your next movie through HelloMovie’s huge <br /> movie
           library
         </p>
-        <SearchInput />
+        <SearchInput setData={setData} />
         <div className="mt-3.5 gap-8 items-center flex justify-center">
           <div className="flex gap-3 items-center">
             <MovieIcon className="fill-primary w-5 h-4" />
@@ -26,6 +30,7 @@ function Main() {
             <p className="text-slate-200 text-xl leading-5">TV Shows</p>
           </div>
         </div>
+        <Movies data={data} />
       </div>
     </div>
   );

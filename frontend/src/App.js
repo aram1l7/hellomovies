@@ -1,15 +1,16 @@
-import Footer from "layout/footer";
-import Header from "layout/header";
-import Main from "layout/main";
+import Home from "layout";
+import Movie from "layout/movie";
 import React from "react";
+import { Routes, BrowserRouter as Router, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div className="bg-dark h-screen">
-      <Header />
-      <Main />
-      <Footer />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies/:id" element={<Movie />} />
+      </Routes>
+    </Router>
   );
 }
 

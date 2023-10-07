@@ -4,33 +4,66 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const page = req.query.page || 1;
-    const pageSize = 20; // Set the page size to 20 movies per page
-    const skip = (page - 1) * pageSize;
-    const searchTerm = req.query.search || "";
+    const { page = 1, pageSize = 20, search } = req.query;
 
-    const movies = await prisma.movie.findMany({
-      skip,
-      take: pageSize,
-      where: {
-        OR: [
-          {
+    const parsedPage = parseInt(page, 10);
+    const parsedPageSize = parseInt(pageSize, 10);
+
+    const skip = (parsedPage - 1) * parsedPageSize;
+
+    let movies;
+    let total;
+
+    if (search) {
+      [movies, total] = await Promise.all([
+        prisma.movie.findMany({
+          where: {
             title: {
-              contains: searchTerm,
+              contains: search,
               mode: "insensitive",
             },
-          },
-          {
             overview: {
-              contains: searchTerm,
+              contains: search,
               mode: "insensitive",
             },
           },
-        ],
+          skip,
+          take: parsedPageSize,
+        }),
+        prisma.movie.count({
+          where: {
+            title: {
+              contains: search,
+              mode: "insensitive",
+            },
+            overview: {
+              contains: search,
+              mode: "insensitive",
+            },
+          },
+        }),
+      ]);
+    } else {
+      [movies, total] = await Promise.all([
+        prisma.movie.findMany({
+          skip,
+          take: parsedPageSize,
+        }),
+        prisma.movie.count(),
+      ]);
+    }
+
+    const totalPages = Math.ceil(total / parsedPageSize);
+
+    return res.status(200).json({
+      movies,
+      metadata: {
+        total,
+        totalPages,
+        currentPage: parsedPage,
+        pageSize: parsedPageSize,
       },
     });
-
-    return res.status(200).json(movies);
   } catch (error) {
     console.error(error);
     return res.status(400).json({ error });
