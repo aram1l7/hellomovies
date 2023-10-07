@@ -41,7 +41,7 @@ router.get("/:id", async (req, res) => {
   try {
     const movie = await prisma.movie.findUnique({
       where: {
-        id: req.params.id,
+        id: Number(req.params.id),
       },
     });
     if (!movie) {
