@@ -29,7 +29,11 @@ function Main() {
             <p className="text-slate-200 text-xl leading-5">TV Shows</p>
           </div>
         </div>
-        <Movies data={data} />
+        <Movies
+          setData={setData}
+          movies={data.movies}
+          metadata={data.metadata}
+        />
       </div>
     </div>
   );
