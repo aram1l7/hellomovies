@@ -30,8 +30,11 @@ module.exports = {
         screen: "100vh",
         content: "calc(100% - 130px)",
       },
+      minHeight: {
+        content: "calc(100% - 130px)",
+      },
       lineHeight: {
-        11:"48px",
+        11: "48px",
         14: "64px",
       },
       boxShadow: {

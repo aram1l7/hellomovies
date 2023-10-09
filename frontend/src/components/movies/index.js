@@ -1,6 +1,10 @@
 import { fetchMovies } from "api";
+import Pagination from "components/pagination";
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import { ReactComponent as List } from "assets/icons/horizontal-cards-icon.svg";
+import { ReactComponent as Grid } from "assets/icons/vertical-cards-icon.svg";
+import Card from "./card";
 
 function Movies({ movies, metadata, setData }) {
   const itemsPerPage = 20;
@@ -10,6 +14,8 @@ function Movies({ movies, metadata, setData }) {
 
   const [startIndex, setStartIndex] = useState(1);
   const [endIndex, setEndIndex] = useState(null);
+
+  const [layout, setLayout] = useState("grid");
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -63,35 +69,65 @@ function Movies({ movies, metadata, setData }) {
   return (
     <div className="text-slate-200">
       {movieData.length > 0 && !!metadata ? (
-        <>
-          <div className="flex flex-wrap">
+        <div className="mx-auto max-w-7xl">
+          <div className="flex justify-between mt-10">
+            <p>
+              Found <span className="text-primary">{metadata.total}</span>{" "}
+              Movies
+            </p>
+
+            <div className="flex gap-2 items-center">
+              <span>layout:</span>
+              <div
+                onClick={() => {
+                  if (layout === "grid") return;
+                  setLayout("grid");
+                }}
+                className={`p-2.5 cursor-pointer rounded-lg ${
+                  layout === "grid" ? "bg-light" : "bg-slate-900"
+                } `}
+              >
+                <Grid
+                  className={`w-3 h-3 ${
+                    layout === "grid" ? "fill-primary" : ""
+                  } `}
+                />
+              </div>
+              <div
+                onClick={() => {
+                  if (layout === "list") return;
+                  setLayout("list");
+                }}
+                className={`p-2.5 cursor-pointer rounded-lg ${
+                  layout === "list" ? "bg-light" : "bg-slate-900"
+                } `}
+              >
+                <List
+                  className={`w-3 h-3 ${
+                    layout === "list" ? "fill-primary" : ""
+                  } `}
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className={`mt-8 grid gap-5 grid-cols-1 xs:grid-cols-2 ${
+              layout === "grid" ? "md:grid-cols-3 lg:grid-cols-4" : ""
+            } `}
+          >
             {movieData.map((ele) => {
-              return (
-                <div key={ele.id}>
-                  <span>{ele.title}</span>
-                </div>
-              );
+              return <Card key={ele.id} {...ele} layout={layout} />;
             })}
           </div>
-          <div>
-            Showing {startIndex} to {endIndex} of {metadata.total} results
-          </div>
-
-          <div>
-            <button
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage((prev) => prev - 1)}
-            >
-              Previous
-            </button>
-            <button
-              disabled={currentPage === metadata.totalPages}
-              onClick={() => setCurrentPage((prev) => prev + 1)}
-            >
-              Next
-            </button>
-          </div>
-        </>
+          <Pagination
+            startIndex={startIndex}
+            endIndex={endIndex}
+            total={metadata.total}
+            totalPages={metadata.totalPages}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
       ) : (
         <>{searchParams.get("search") && <div>No results</div>}</>
       )}

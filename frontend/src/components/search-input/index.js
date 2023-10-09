@@ -31,17 +31,8 @@ function SearchInput({ setData }) {
   };
 
   useEffect(() => {
-    // async function fetchData() {
-    //   console.log(searchParams.get("search"), 'search');
-    //   const { data } = await fetchMovies({
-    //     search: searchParams.get("search"),
-    //     page: searchParams.get("page") || 1,
-    //   });
-    //   setData(data);
-    // }
     if (searchParams.get("search")) {
       setSearchValue(searchParams.get("search"));
-      // fetchData();
     }
   }, []);
 
