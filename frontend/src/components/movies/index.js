@@ -83,12 +83,12 @@ function Movies({ movies, metadata, setData }) {
                   if (layout === "grid") return;
                   setLayout("grid");
                 }}
-                className={`p-2.5 cursor-pointer rounded-lg ${
+                className={`p-2.5 group cursor-pointer rounded-lg ${
                   layout === "grid" ? "bg-light" : "bg-slate-900"
                 } `}
               >
                 <Grid
-                  className={`w-3 h-3 ${
+                  className={`w-3 h-3 group-hover:fill-primary duration-200 ease-in transition-colors ${
                     layout === "grid" ? "fill-primary" : ""
                   } `}
                 />
@@ -98,12 +98,12 @@ function Movies({ movies, metadata, setData }) {
                   if (layout === "list") return;
                   setLayout("list");
                 }}
-                className={`p-2.5 cursor-pointer rounded-lg ${
+                className={`p-2.5 group cursor-pointer rounded-lg ${
                   layout === "list" ? "bg-light" : "bg-slate-900"
                 } `}
               >
                 <List
-                  className={`w-3 h-3 ${
+                  className={`w-3 h-3 group-hover:fill-primary duration-200 ease-in transition-colors ${
                     layout === "list" ? "fill-primary" : ""
                   } `}
                 />
@@ -111,7 +111,7 @@ function Movies({ movies, metadata, setData }) {
             </div>
           </div>
           <div
-            className={`mt-8 grid gap-5 grid-cols-1 xs:grid-cols-2 ${
+            className={`mt-8 auto-cols-max grid gap-5 grid-cols-1 xs:grid-cols-2 ${
               layout === "grid" ? "md:grid-cols-3 lg:grid-cols-4" : ""
             } `}
           >
