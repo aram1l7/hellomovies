@@ -10,13 +10,13 @@ function Pagination({
   setCurrentPage,
 }) {
   return (
-    <div className="flex mt-8 mb-20 justify-between items-center">
+    <div className="flex flex-col sm:flex-row gap-3 mt-8 mb-20 justify-between items-center">
       <div>
         Showing {startIndex} to {endIndex} of{" "}
         <span className="text-primary"> {total} </span>results
       </div>
 
-      <div className="flex gap-3 items-center">
+      <div className="flex w-full sm:w-fit justify-evenly sm:justify-start gap-3 items-center">
         <Button
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}

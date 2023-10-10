@@ -110,7 +110,7 @@ function Movies({ movies, metadata, setData }) {
             </div>
           </div>
           <div
-            className={`mt-8 auto-cols-max grid gap-5 grid-cols-1 xs:grid-cols-2 ${
+            className={`mt-8 select-none auto-cols-max grid gap-5 grid-cols-1 xs:grid-cols-2 ${
               layout === "grid" ? "md:grid-cols-3 lg:grid-cols-4" : ""
             } `}
           >
@@ -128,7 +128,14 @@ function Movies({ movies, metadata, setData }) {
           />
         </div>
       ) : (
-        <>{searchParams.get("search") && <div>No results</div>}</>
+        <>
+          {searchParams.get("search") && (
+            <div className="text-primary lg:w-[512px] w-full my-10 text-center text-base 
+             md:text-xl bg-light py-6 px-14 rounded-2xl">
+              No results found for "{searchParams.get("search")}"
+            </div>
+          )}
+        </>
       )}
     </div>
   );
