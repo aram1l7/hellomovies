@@ -1,30 +1,31 @@
 import React from "react";
 import stalone from "assets/stalone.png";
 import { ReactComponent as Star } from "assets/icons/star.svg";
+import ImageComponent from "components/image";
+import placeholder from "assets/share/movie-time.jpg";
+import { Link } from "react-router-dom";
 
 function Card({
   layout,
   id,
   title,
   score,
-  rating,
-  overview,
-  actors,
-  director,
   duration,
   genres,
   year,
   image,
 }) {
   return (
-    <>
+    <Link to={`/movies/${id}`}>
       {layout === "grid" ? (
-        <div className="flex cursor-pointer min-w-[16rem] flex-col gap-3">
+        <div className="flex cursor-pointer flex-col gap-3">
           <div>
-            <div className="relative loading">
-              <object className="rounded-3xl" data={image} type="image/png">
-                <img src={stalone} />
-              </object>
+            <div className="relative">
+              <ImageComponent
+                src={image}
+                placeholderSrc={placeholder}
+                fallback={stalone}
+              />
 
               <div className="absolute top-8 rounded-r-lg text-slate-200 text-sm font-medium left-0 px-2 py-1 bg-dark">
                 {year}
@@ -37,7 +38,6 @@ function Card({
               <p>
                 {genres
                   .map((ele) => {
-                    console.log(ele, "ele");
                     return ele;
                   })
                   .join(", ")}{" "}
@@ -52,10 +52,12 @@ function Card({
         </div>
       ) : (
         <div className="flex cursor-pointer lg:min-w-[34rem] bg-light rounded-r-2xl">
-          <div>
-            <object className="w-28" data={image} type="image/png">
-              <img className="w-full h-full object-cover" src={stalone} />
-            </object>
+          <div className="w-28">
+            <ImageComponent
+              src={image}
+              placeholderSrc={placeholder}
+              fallback={stalone}
+            />
           </div>
           <div className="flex w-full flex-col justify-between px-5 pt-4 pb-5">
             <div className="flex justify-between">
@@ -73,7 +75,6 @@ function Card({
                 <p>
                   {genres
                     .map((ele) => {
-                      console.log(ele, "ele");
                       return ele;
                     })
                     .join(", ")}{" "}
@@ -84,7 +85,7 @@ function Card({
           </div>
         </div>
       )}
-    </>
+    </Link>
   );
 }
 

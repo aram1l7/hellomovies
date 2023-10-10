@@ -10,7 +10,6 @@ function Movies({ movies, metadata, setData }) {
   const itemsPerPage = 20;
 
   const [movieData, setMovieData] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
 
   const [startIndex, setStartIndex] = useState(1);
   const [endIndex, setEndIndex] = useState(null);
@@ -18,6 +17,7 @@ function Movies({ movies, metadata, setData }) {
   const [layout, setLayout] = useState("grid");
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const [currentPage, setCurrentPage] = useState(searchParams.get("page") || 1);
 
   useEffect(() => {
     if (movies) {
@@ -30,7 +30,6 @@ function Movies({ movies, metadata, setData }) {
       setCurrentPage(metadata.currentPage);
 
       const newStartIdx = (currentPage - 1) * itemsPerPage + 1;
-      console.log(newStartIdx, "startIdx");
       const newEndIdx = Math.min(
         newStartIdx + itemsPerPage - 1,
         metadata.total

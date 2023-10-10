@@ -11,7 +11,7 @@ function Main() {
     <div className="w-full px-4 md:px-5 lg:px-10 bg-dark min-h-content flex justify-center items-center">
       <div className="flex flex-col items-center">
         <div className="flex flex-col text-center max-w-3xl">
-          <h1 className="text-slate-100 font-bold text-3xl md:text-5xl lg:text-6.5xl md:leading-11 lg:leading-14">
+          <h1 className="text-slate-100 mt-24 font-bold text-3xl md:text-5xl lg:text-6.5xl md:leading-11 lg:leading-14">
             Need help finding the next movie?
           </h1>
           <p className="text-sky-200 mt-3 text-base md:text-lg lg:text-xl lg:leading-7">
