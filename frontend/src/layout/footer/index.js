@@ -13,7 +13,10 @@ function Footer() {
           <img src={footerLogo} className="w-full h-full object-cover" />
         </div>
         <span className="hidden md:block text-sky-200">{" | "}</span>
-        <p className="text-sm text-center text-slate-200 font-light">
+        <p
+          data-testid="copyright"
+          className="text-sm text-center text-slate-200 font-light"
+        >
           &copy; Copyright {new Date().getFullYear()} HelloMovies. All Rights
           Reserved
         </p>

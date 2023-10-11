@@ -21,11 +21,13 @@ function Pagination({
           disabled={currentPage === 1}
           onClick={() => setCurrentPage((prev) => prev - 1)}
           text="Previous"
+          data-testid="previous"
         />
 
         <Button
           disabled={currentPage === totalPages}
           onClick={() => setCurrentPage((prev) => prev + 1)}
+          data-testid="next"
           text="Next"
         />
       </div>

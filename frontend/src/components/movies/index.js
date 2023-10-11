@@ -78,6 +78,7 @@ function Movies({ movies, metadata, setData }) {
             <div className="flex gap-2 items-center">
               <span>layout:</span>
               <div
+                data-testid="toggle-grid"
                 onClick={() => {
                   if (layout === "grid") return;
                   setLayout("grid");
@@ -93,6 +94,7 @@ function Movies({ movies, metadata, setData }) {
                 />
               </div>
               <div
+                data-testid="toggle-list"
                 onClick={() => {
                   if (layout === "list") return;
                   setLayout("list");
@@ -110,8 +112,11 @@ function Movies({ movies, metadata, setData }) {
             </div>
           </div>
           <div
+            data-testid="grid-list"
             className={`mt-8 select-none auto-cols-max grid gap-5 grid-cols-1 xs:grid-cols-2 ${
-              layout === "grid" ? "md:grid-cols-3 lg:grid-cols-4" : ""
+              layout === "grid"
+                ? "md:grid-cols-3 lg:grid-cols-4 layout-grid"
+                : "layout-list"
             } `}
           >
             {movieData.map((ele) => {
@@ -130,8 +135,10 @@ function Movies({ movies, metadata, setData }) {
       ) : (
         <>
           {searchParams.get("search") && (
-            <div className="text-primary lg:w-[512px] w-full my-10 text-center text-base 
-             md:text-xl bg-light py-6 px-14 rounded-2xl">
+            <div
+              className="text-primary lg:w-[512px] w-full my-10 text-center text-base 
+             md:text-xl bg-light py-6 px-14 rounded-2xl"
+            >
               No results found for "{searchParams.get("search")}"
             </div>
           )}
